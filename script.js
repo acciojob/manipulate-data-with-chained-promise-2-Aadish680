@@ -1,32 +1,32 @@
-//your JS code here. If required.
-function manipulateArray() {
-    const outputDiv = document.getElementById("output");
+document.getElementById("startBtn").addEventListener("click", manipulateArray);
 
-    // Initial promise resolving after 3 seconds
-    new Promise((resolve) => {
-        setTimeout(() => resolve([1, 2, 3, 4]), 3000);
+function manipulateArray() {
+    const output = document.getElementById("output");
+    output.innerText = "Processing...";
+
+    // Step 1: Create a Promise that resolves with the array after 3 seconds
+    new Promise(resolve => {
+        setTimeout(() => {
+            resolve([1, 2, 3, 4]);
+        }, 3000);
     })
-    .then(numbers => {
-        // First transformation: Filter out odd numbers (after 1 second)
-        return new Promise((resolve) => {
+    .then(arr => {
+        return new Promise(resolve => {
             setTimeout(() => {
-                const evens = numbers.filter(num => num % 2 === 0);
-                outputDiv.textContent = evens.join(", ");
-                resolve(evens);
-            }, 1000);
+                const evenNumbers = arr.filter(num => num % 2 === 0);
+                output.innerText = evenNumbers.join(", ");
+                resolve(evenNumbers);
+            }, 000);
         });
     })
     .then(evenNumbers => {
-        // Second transformation: Multiply even numbers by 2 (after 2 seconds)
-        return new Promise((resolve) => {
+        // Step 3: Multiply even numbers by 2 after another 2 seconds
+        return new Promise(resolve => {
             setTimeout(() => {
-                const doubled = evenNumbers.map(num => num * 2);
-                outputDiv.textContent = doubled.join(", ");
-                resolve(doubled);
+                const doubledNumbers = evenNumbers.map(num => num * 2);
+                output.innerText = doubledNumbers.join(", ");
+                resolve(doubledNumbers);
             }, 2000);
         });
     });
 }
-
-// Call the function to execute the transformations
-manipulateArray();
